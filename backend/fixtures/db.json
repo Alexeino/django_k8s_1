@@ -1,0 +1,21 @@
+[
+  
+  {
+    "model": "auth.user",
+    "pk": 2,
+    "fields": {
+      "password": "django_password",
+      "last_login": null,
+      "is_superuser": true,
+      "username": "django_uesr",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2023-07-02T06:12:07.354Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  }
+]

@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: books-app
+spec:
+  selector:
+    matchLabels:
+      app: books-app
+  template:
+    metadata:
+      labels:
+        app: books-app
+    spec:
+      containers:
+      - name: books-app
+        image: alexeino/books:v1
+        ports:
+        - containerPort: 8000
+        env:
+          - name: DATABASE_URL
+            valueFrom:
+              secretKeyRef:
+                name: django-secret
+                key: DATABASE_URL
+
+          - name: DJANGO_SECRET_KEY
+            valueFrom:
+              secretKeyRef:
+                name: django-secret
+                key: DJANGO_SECRET_KEY
+
+          - name: DJANGO_SUPERUSER_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: django-secret
+                key: DJANGO_SUPERUSER_PASSWORD
+
+          - name: DEBUG
+            valueFrom:
+              secretKeyRef:
+                name: django-secret
+                key: DEBUG
+--- 
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: django-svc
+spec:
+  type: ClusterIP
+  selector:
+    app: books-app
+  ports:
+  - port: 8000
+
+  
